@@ -7,6 +7,7 @@ class_name Main
 @onready var p1_guy: Guy = $Team/Guy1
 @onready var p1_anim: AnimationPlayer = $Team/Anim
 @onready var p1_strike_zone: StrikeZone = $Team/StrikeZone
+@onready var special_audio: AudioStreamPlayer = $SpecialAudio
 
 @export var strike_range = 180;
 @export var strike_magnitude = 50000;
@@ -36,6 +37,8 @@ func handle_p1_strike():
 			var strike_angle = deg_to_rad(strike_angle_deg);
 			var x = strike_magnitude * cos(strike_angle);
 			var y = -strike_magnitude * sin(strike_angle);
+			special_audio.pitch_scale = randf_range(1, 1.2);
+			special_audio.play();
 			body.apply_central_force(Vector2(x, y));
 	return;
 

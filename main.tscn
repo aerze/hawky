@@ -1,8 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://b5uep0v8ced3s"]
+[gd_scene load_steps=29 format=3 uid="uid://b5uep0v8ced3s"]
 
 [ext_resource type="Script" uid="uid://k6apbfinss34" path="res://main.gd" id="1_5vw27"]
 [ext_resource type="Texture2D" uid="uid://bq1fnhv7a2fjj" path="res://Field.png" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dyknyyw3owe7l" path="res://button.png" id="2_h2yge"]
+[ext_resource type="AudioStream" uid="uid://b2xa3fmcy4a4v" path="res://assets/audio/special_hit_homerun_bat.mp3" id="2_vivmo"]
 [ext_resource type="Texture2D" uid="uid://rrg7jfjhsg66" path="res://button_pressed.png" id="3_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://iiruu1tac6x" path="res://socket.png" id="4_lquwl"]
 [ext_resource type="Script" uid="uid://bs56boai6shp8" path="res://strike_button.gd" id="5_7mycd"]
@@ -13,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://c0mqpvsns2jsy" path="res://puck.png" id="10_4c57u"]
 [ext_resource type="Script" uid="uid://2u2urn4pv4yp" path="res://strike_zone.gd" id="10_efxa6"]
 [ext_resource type="Script" uid="uid://66ukrd3xpljj" path="res://puck.gd" id="12_dg77c"]
+[ext_resource type="PhysicsMaterial" uid="uid://bhfjyla5ot5q2" path="res://puck_physics_material_normal.tres" id="13_2cqfq"]
+[ext_resource type="AudioStream" uid="uid://b57uxeuhiu1ev" path="res://assets/audio/puck_bounce_5.ogg" id="14_w48qg"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1bvp3"]
 load_path = "res://.godot/imported/Stick.png-8c3395c5d275df384132a17551c5a322.ctex"
@@ -73,15 +76,15 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_efxa6"]
-friction = 0.01
-bounce = 0.9
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_dg77c"]
 radius = 20.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_5vw27")
+
+[node name="SpecialAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_vivmo")
+volume_db = -10.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -128
@@ -170,14 +173,20 @@ rotation = 3.14159
 shape = SubResource("WorldBoundaryShape2D_0xm2m")
 
 [node name="WorldLeft" type="CollisionShape2D" parent="Field/WorldBounds"]
-position = Vector2(0, 720)
+position = Vector2(34, 720)
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_7dm0k")
 
 [node name="WorldRight" type="CollisionShape2D" parent="Field/WorldBounds"]
-position = Vector2(720, 720)
+position = Vector2(686, 720)
 rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_7dm0k")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Field/WorldBounds"]
+polygon = PackedVector2Array(-1, 285, 33, 285, 38, 221, 74, 167, 153, 122, 250, 112, 267, 28, 454, 28, 467, 116, 570, 125, 633, 159, 677, 220, 687, 276, 769, 276, 764, -58, -40, -58, -40, 285)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Field/WorldBounds"]
+polygon = PackedVector2Array(686, 1115, 688, 1173, 674, 1233, 647, 1273, 589, 1309, 520, 1325, 451, 1327, 451, 1409, 279, 1409, 278, 1323, 196, 1323, 126, 1304, 69, 1265, 37, 1206, 32, 1162, 31, 1114, -40, 1113, -38, 1492, 816, 1496, 803, 1115)
 
 [node name="Team" type="Node2D" parent="."]
 physics_interpolation_mode = 1
@@ -237,9 +246,11 @@ position = Vector2(595, 1130)
 collision_layer = 2
 collision_mask = 7
 mass = 0.2
-physics_material_override = SubResource("PhysicsMaterial_efxa6")
+physics_material_override = ExtResource("13_2cqfq")
 gravity_scale = 0.0
 can_sleep = false
+contact_monitor = true
+max_contacts_reported = 2
 linear_velocity = Vector2(1000, 0)
 script = ExtResource("12_dg77c")
 
@@ -249,3 +260,7 @@ texture = ExtResource("10_4c57u")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Puck"]
 shape = SubResource("CircleShape2D_dg77c")
 debug_color = Color(0.650637, 0.519533, 0, 0.42)
+
+[node name="PuckAudio" type="AudioStreamPlayer" parent="Puck"]
+stream = ExtResource("14_w48qg")
+volume_db = -4.0
