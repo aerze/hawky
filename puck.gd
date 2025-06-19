@@ -1,22 +1,9 @@
 extends RigidBody2D
 class_name Puck
 
-const PUCK_BOUNCE_1 = preload("res://assets/audio/puck_bounce_1.ogg");
-const PUCK_BOUNCE_2 = preload("res://assets/audio/puck_bounce_2.ogg");
-const PUCK_BOUNCE_3 = preload("res://assets/audio/puck_bounce_3.ogg");
-const PUCK_BOUNCE_4 = preload("res://assets/audio/puck_bounce_4.ogg");
-const PUCK_BOUNCE_5 = preload("res://assets/audio/puck_bounce_5.ogg");
-
-
-
 @onready var puck_audio: AudioStreamPlayer = $PuckAudio
 
-const BONKS = [
-	PUCK_BOUNCE_1,
-	PUCK_BOUNCE_2,
-	PUCK_BOUNCE_3,
-	PUCK_BOUNCE_4
-]
+@export var puck_sounds: Array[AudioStream] = [];
 
 var left:
 	get:
@@ -28,6 +15,7 @@ func _ready() -> void:
 
 func handle_body_entered(body: Node):
 	puck_audio.stop();
-	puck_audio.stream = BONKS.pick_random();
+	puck_audio.pitch_scale = randf_range(0.9, 1.2);
+	puck_audio.stream = puck_sounds.pick_random();
 	puck_audio.play();
 	return;

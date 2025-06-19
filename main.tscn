@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b5uep0v8ced3s"]
+[gd_scene load_steps=26 format=3 uid="uid://b5uep0v8ced3s"]
 
 [ext_resource type="Script" uid="uid://k6apbfinss34" path="res://main.gd" id="1_5vw27"]
 [ext_resource type="Texture2D" uid="uid://bq1fnhv7a2fjj" path="res://Field.png" id="1_ig7tw"]
@@ -11,11 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://b44ghn7ur0di3" path="res://hawky_1.png" id="8_kek77"]
 [ext_resource type="Script" uid="uid://dsdb2cqxsha55" path="res://guy.gd" id="9_dg77c"]
 [ext_resource type="Texture2D" uid="uid://cxbcbw8niwv6v" path="res://bat.png" id="9_kek77"]
-[ext_resource type="Texture2D" uid="uid://c0mqpvsns2jsy" path="res://puck.png" id="10_4c57u"]
 [ext_resource type="Script" uid="uid://2u2urn4pv4yp" path="res://strike_zone.gd" id="10_efxa6"]
-[ext_resource type="Script" uid="uid://66ukrd3xpljj" path="res://puck.gd" id="12_dg77c"]
-[ext_resource type="PhysicsMaterial" uid="uid://bhfjyla5ot5q2" path="res://puck_physics_material_normal.tres" id="13_2cqfq"]
-[ext_resource type="AudioStream" uid="uid://b57uxeuhiu1ev" path="res://assets/audio/puck_bounce_5.ogg" id="14_w48qg"]
+[ext_resource type="PackedScene" uid="uid://dxhcvm6cwelm2" path="res://objects/puck.tscn" id="13_ycdy4"]
+[ext_resource type="AudioStream" uid="uid://b57uxeuhiu1ev" path="res://assets/audio/puck_bounce_5.ogg" id="18_getpj"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1bvp3"]
 load_path = "res://.godot/imported/Stick.png-8c3395c5d275df384132a17551c5a322.ctex"
@@ -75,9 +73,6 @@ _data = {
 "points": PackedVector2Array(-651.419, 184.446, 651.419, -184.446, -44.0089, 1937.03, -639.518, -171.809, 639.518, 171.809, 1398.5, 1925.17)
 }
 point_count = 2
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_dg77c"]
-radius = 20.0
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_5vw27")
@@ -239,28 +234,22 @@ scale = Vector2(4.88988, 2.96636)
 progress = 751.248
 loop = false
 
-[node name="Puck" type="RigidBody2D" parent="."]
-z_index = 999
-z_as_relative = false
+[node name="Puck" parent="." instance=ExtResource("13_ycdy4")]
 position = Vector2(595, 1130)
-collision_layer = 2
-collision_mask = 7
-mass = 0.2
-physics_material_override = ExtResource("13_2cqfq")
-gravity_scale = 0.0
-can_sleep = false
-contact_monitor = true
-max_contacts_reported = 2
-linear_velocity = Vector2(1000, 0)
-script = ExtResource("12_dg77c")
+puck_sounds = Array[AudioStream]([ExtResource("18_getpj")])
 
-[node name="PuckSprite" type="Sprite2D" parent="Puck"]
-texture = ExtResource("10_4c57u")
+[node name="Puck2" parent="." instance=ExtResource("13_ycdy4")]
+position = Vector2(595, 1130)
+puck_sounds = Array[AudioStream]([ExtResource("18_getpj")])
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Puck"]
-shape = SubResource("CircleShape2D_dg77c")
-debug_color = Color(0.650637, 0.519533, 0, 0.42)
+[node name="Puck3" parent="." instance=ExtResource("13_ycdy4")]
+position = Vector2(595, 1130)
+puck_sounds = Array[AudioStream]([ExtResource("18_getpj")])
 
-[node name="PuckAudio" type="AudioStreamPlayer" parent="Puck"]
-stream = ExtResource("14_w48qg")
-volume_db = -4.0
+[node name="Puck4" parent="." instance=ExtResource("13_ycdy4")]
+position = Vector2(595, 1130)
+puck_sounds = Array[AudioStream]([ExtResource("18_getpj")])
+
+[node name="Puck5" parent="." instance=ExtResource("13_ycdy4")]
+position = Vector2(595, 1130)
+puck_sounds = Array[AudioStream]([ExtResource("18_getpj")])
