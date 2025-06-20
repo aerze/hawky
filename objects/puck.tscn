@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxhcvm6cwelm2"]
+[gd_scene load_steps=7 format=3 uid="uid://dxhcvm6cwelm2"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://bhfjyla5ot5q2" path="res://puck_physics_material_normal.tres" id="1_4620t"]
 [ext_resource type="Script" uid="uid://66ukrd3xpljj" path="res://puck.gd" id="2_nhqoa"]
 [ext_resource type="Texture2D" uid="uid://c0mqpvsns2jsy" path="res://puck.png" id="3_lownt"]
 [ext_resource type="AudioStream" uid="uid://b57uxeuhiu1ev" path="res://assets/audio/puck_bounce_5.ogg" id="4_rxrmx"]
+[ext_resource type="AudioStream" uid="uid://cq3ob6wsv3mxq" path="res://assets/audio/puck_slide.ogg" id="5_nhqoa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dg77c"]
 radius = 20.0
@@ -21,6 +22,9 @@ contact_monitor = true
 max_contacts_reported = 2
 linear_velocity = Vector2(1000, 0)
 script = ExtResource("2_nhqoa")
+puck_sounds = Array[AudioStream]([ExtResource("4_rxrmx")])
+max_slide_velocity = 300.0
+min_slide_velocity = 100.0
 
 [node name="PuckSprite" type="Sprite2D" parent="."]
 texture = ExtResource("3_lownt")
@@ -31,5 +35,9 @@ debug_color = Color(0.650637, 0.519533, 0, 0.42)
 
 [node name="PuckAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_rxrmx")
-volume_db = -12.0
+volume_db = -13.5
 pitch_scale = 1.1
+
+[node name="PuckSlide" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_nhqoa")
+volume_db = -20.0

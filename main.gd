@@ -16,7 +16,12 @@ class_name Main
 func _ready() -> void:
 	p1_strike.strike.connect(handle_p1_strike);
 	pass # Replace with function body.
-
+	
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("dev_close_game"):
+		get_tree().quit()
+	return
+	
 func handle_p1_strike():
 	if (p1_anim.is_playing()):
 		p1_anim.play("RESET");
