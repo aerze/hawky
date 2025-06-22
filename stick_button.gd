@@ -8,7 +8,7 @@ class_name StickButton
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	gui_input.connect(handle_gui_event);
-	pass # Replace with function body.
+	return;
 
 func handle_gui_event(event: InputEvent):
 	if (event is InputEventScreenDrag):

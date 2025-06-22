@@ -1,0 +1,115 @@
+[gd_scene load_steps=9 format=3 uid="uid://ysv7ueo1fha0"]
+
+[ext_resource type="Texture2D" uid="uid://bq1fnhv7a2fjj" path="res://assets/fields/Standard.png" id="1_c7k8o"]
+[ext_resource type="Script" uid="uid://bn7ph1xeieifh" path="res://Field.gd" id="1_wdj6w"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7dm0k"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ig7tw"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0xm2m"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7dm0k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c7k8o"]
+size = Vector2(229, 79)
+
+[sub_resource type="Curve2D" id="Curve2D_h6tip"]
+_data = {
+"points": PackedVector2Array(-651.419, 184.446, 720, -200, 0, 0, -720, -200, 627.075, 174.325, 1440, 0)
+}
+point_count = 2
+
+[node name="StandardField" type="Node2D"]
+script = ExtResource("1_wdj6w")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_c7k8o")
+
+[node name="WorldBounds" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_7dm0k")
+
+[node name="WorldBottom" type="CollisionShape2D" parent="WorldBounds"]
+position = Vector2(360, 1440)
+shape = SubResource("WorldBoundaryShape2D_ig7tw")
+
+[node name="WorldTop" type="CollisionShape2D" parent="WorldBounds"]
+position = Vector2(360, 0)
+rotation = 3.14159
+shape = SubResource("WorldBoundaryShape2D_0xm2m")
+
+[node name="WorldLeft" type="CollisionShape2D" parent="WorldBounds"]
+position = Vector2(34, 720)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_7dm0k")
+
+[node name="WorldRight" type="CollisionShape2D" parent="WorldBounds"]
+position = Vector2(686, 720)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_7dm0k")
+
+[node name="NorthCurves" type="CollisionPolygon2D" parent="WorldBounds"]
+polygon = PackedVector2Array(263, 118, 200, 118, 134, 133, 94, 154, 58, 192, 40, 237, 35, 284, -39, 284, -40, -59, 763, -57, 768, 277, 688, 276, 679, 230, 664, 193, 632, 158, 587, 133, 529, 119, 461, 118, 461, 29, 263, 29)
+
+[node name="SouthCurves" type="CollisionPolygon2D" parent="WorldBounds"]
+polygon = PackedVector2Array(686, 1115, 688, 1173, 674, 1233, 637, 1283, 589, 1309, 520, 1323, 451, 1323, 451, 1409, 279, 1409, 278, 1323, 199, 1323, 127, 1308, 77, 1274, 46, 1230, 32, 1167, 31, 1114, -40, 1113, -38, 1492, 816, 1496, 803, 1115)
+
+[node name="NorthGoal" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NorthGoal"]
+position = Vector2(360.5, 39.5)
+shape = SubResource("RectangleShape2D_c7k8o")
+
+[node name="SouthGoal" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SouthGoal"]
+position = Vector2(360, 1399)
+shape = SubResource("RectangleShape2D_c7k8o")
+
+[node name="NorthPath" type="Path2D" parent="."]
+position = Vector2(559, 237)
+rotation = 3.14159
+scale = Vector2(0.275, 0.539666)
+curve = SubResource("Curve2D_h6tip")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="NorthPath"]
+position = Vector2(718.188, -149.998)
+rotation = -0.00186447
+scale = Vector2(4.88988, 2.96636)
+progress = 735.794
+loop = false
+
+[node name="SouthPath" type="Path2D" parent="."]
+position = Vector2(162, 1204.95)
+scale = Vector2(0.275, 0.539666)
+curve = SubResource("Curve2D_h6tip")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="SouthPath"]
+position = Vector2(718.188, -149.998)
+rotation = -0.00186447
+scale = Vector2(4.88988, 2.96636)
+progress = 735.794
+loop = false
+
+[node name="Spawn" type="Node2D" parent="."]
+position = Vector2(360, 721)
+
+[node name="DevGuides" type="Node2D" parent="."]
+visible = false
+
+[node name="Line2D" type="Line2D" parent="DevGuides"]
+points = PackedVector2Array(360, -60, 360, 1600)

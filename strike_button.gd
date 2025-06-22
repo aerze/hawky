@@ -9,7 +9,7 @@ signal strike();
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	gui_input.connect(handle_gui_input);
-	pass # Replace with function body.
+	return;
 
 func handle_gui_input(event: InputEvent):
 	if (event is InputEventScreenTouch):
@@ -20,7 +20,3 @@ func handle_gui_input(event: InputEvent):
 		else:
 			texture = normal_texture;
 	return;
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

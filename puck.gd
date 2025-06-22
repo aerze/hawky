@@ -5,7 +5,7 @@ class_name Puck
 @onready var puck_slide: AudioStreamPlayer = $PuckSlide
 
 @export var puck_sounds: Array[AudioStream] = [];
-@export var max_slide_velocity: float; 
+@export var max_slide_velocity: float;
 @export var min_slide_velocity: float;
 
 var left:
@@ -31,5 +31,5 @@ func _process(_delta: float) -> void:
 		if !puck_slide.playing:
 			puck_slide.playing = true;
 	else:
-		if puck_slide.playing: 
+		if puck_slide.playing:
 			puck_slide.playing = false;

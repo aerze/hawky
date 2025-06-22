@@ -1,31 +1,21 @@
-[gd_scene load_steps=25 format=3 uid="uid://b5uep0v8ced3s"]
+[gd_scene load_steps=17 format=3 uid="uid://b5uep0v8ced3s"]
 
 [ext_resource type="Script" uid="uid://k6apbfinss34" path="res://main.gd" id="1_5vw27"]
-[ext_resource type="Texture2D" uid="uid://bq1fnhv7a2fjj" path="res://Field.png" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://dyknyyw3owe7l" path="res://button.png" id="2_h2yge"]
 [ext_resource type="AudioStream" uid="uid://5br7wjfbuibx" path="res://assets/audio/special_hit.ogg" id="2_ycdy4"]
-[ext_resource type="Texture2D" uid="uid://rrg7jfjhsg66" path="res://button_pressed.png" id="3_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://iiruu1tac6x" path="res://socket.png" id="4_lquwl"]
-[ext_resource type="Script" uid="uid://bs56boai6shp8" path="res://strike_button.gd" id="5_7mycd"]
-[ext_resource type="Script" uid="uid://c8v813f5luo48" path="res://stick_button.gd" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://c4l1m5m0ff5iv" path="res://hud/controller.tscn" id="3_kek77"]
 [ext_resource type="Texture2D" uid="uid://b44ghn7ur0di3" path="res://hawky_1.png" id="8_kek77"]
 [ext_resource type="Script" uid="uid://dsdb2cqxsha55" path="res://guy.gd" id="9_dg77c"]
 [ext_resource type="Texture2D" uid="uid://cxbcbw8niwv6v" path="res://bat.png" id="9_kek77"]
+[ext_resource type="PackedScene" uid="uid://ysv7ueo1fha0" path="res://fields/standard.tscn" id="9_ycdy4"]
 [ext_resource type="Script" uid="uid://2u2urn4pv4yp" path="res://strike_zone.gd" id="10_efxa6"]
 [ext_resource type="PackedScene" uid="uid://dxhcvm6cwelm2" path="res://objects/puck.tscn" id="13_ycdy4"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1bvp3"]
-load_path = "res://.godot/imported/Stick.png-8c3395c5d275df384132a17551c5a322.ctex"
+[sub_resource type="SystemFont" id="SystemFont_ycdy4"]
+font_names = PackedStringArray("monogram")
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7dm0k"]
-friction = 0.0
-bounce = 1.0
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ig7tw"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0xm2m"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7dm0k"]
+[sub_resource type="LabelSettings" id="LabelSettings_w48qg"]
+font = SubResource("SystemFont_ycdy4")
+font_size = 48
 
 [sub_resource type="Animation" id="Animation_4c57u"]
 length = 0.001
@@ -67,12 +57,6 @@ radius = 30.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4c57u"]
 size = Vector2(200, 100)
 
-[sub_resource type="Curve2D" id="Curve2D_4c57u"]
-_data = {
-"points": PackedVector2Array(-651.419, 184.446, 651.419, -184.446, -44.0089, 1937.03, -639.518, -171.809, 639.518, 171.809, 1398.5, 1925.17)
-}
-point_count = 2
-
 [node name="Main" type="Node2D"]
 script = ExtResource("1_5vw27")
 
@@ -80,10 +64,10 @@ script = ExtResource("1_5vw27")
 stream = ExtResource("2_ycdy4")
 volume_db = -16.0
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = -128
+[node name="MainMenu" type="CanvasLayer" parent="."]
+visible = false
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="MainMenu"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -91,96 +75,64 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -23.0
-offset_top = -15.5
-offset_right = 23.0
-offset_bottom = 15.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Start"
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-texture = ExtResource("1_ig7tw")
+[node name="Label" type="Label" parent="MainMenu/Control/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+label_settings = SubResource("LabelSettings_w48qg")
 
-[node name="Controller" type="Control" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/Control/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="1 Player" type="Button" parent="MainMenu/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "1 Player"
+
+[node name="2 Player" type="Button" parent="MainMenu/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "2 Player"
+
+[node name="Controls" type="CanvasLayer" parent="."]
+layer = -9
+
+[node name="Control" type="Control" parent="Controls"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -640.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 
-[node name="Socket" type="Sprite2D" parent="CanvasLayer/Control/Controller"]
-position = Vector2(185, 601)
-rotation = 1.5708
-texture = ExtResource("4_lquwl")
+[node name="P1" parent="Controls/Control" instance=ExtResource("3_kek77")]
+layout_mode = 1
 
-[node name="StickButton" type="TextureButton" parent="CanvasLayer/Control/Controller"]
-layout_mode = 0
-offset_left = 48.0
-offset_top = 488.0
-offset_right = 168.0
-offset_bottom = 608.0
-action_mode = 0
-texture_normal = SubResource("CompressedTexture2D_1bvp3")
-stretch_mode = 3
-script = ExtResource("5_lquwl")
-limit_offset = 0.0
-limit_left = 45.0
-limit_right = 205.0
-
-[node name="StrikeButton" type="TextureRect" parent="CanvasLayer/Control/Controller"]
-layout_mode = 0
-offset_left = 582.0
-offset_top = 507.0
-offset_right = 702.0
-offset_bottom = 627.0
-texture = ExtResource("2_h2yge")
-script = ExtResource("5_7mycd")
-normal_texture = ExtResource("2_h2yge")
-pressed_texture = ExtResource("3_1bvp3")
-
-[node name="Field" type="Node2D" parent="."]
-
-[node name="WorldBounds" type="StaticBody2D" parent="Field"]
-physics_material_override = SubResource("PhysicsMaterial_7dm0k")
-
-[node name="WorldBottom" type="CollisionShape2D" parent="Field/WorldBounds"]
-position = Vector2(360, 1440)
-shape = SubResource("WorldBoundaryShape2D_ig7tw")
-
-[node name="WorldTop" type="CollisionShape2D" parent="Field/WorldBounds"]
-position = Vector2(360, 0)
+[node name="P2" parent="Controls/Control" instance=ExtResource("3_kek77")]
+layout_mode = 1
+anchors_preset = 10
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 722.0
+offset_top = 638.0
+offset_right = 722.0
+offset_bottom = 1278.0
+grow_vertical = 1
 rotation = 3.14159
-shape = SubResource("WorldBoundaryShape2D_0xm2m")
 
-[node name="WorldLeft" type="CollisionShape2D" parent="Field/WorldBounds"]
-position = Vector2(34, 720)
-rotation = 1.5708
-shape = SubResource("WorldBoundaryShape2D_7dm0k")
-
-[node name="WorldRight" type="CollisionShape2D" parent="Field/WorldBounds"]
-position = Vector2(686, 720)
-rotation = -1.5708
-shape = SubResource("WorldBoundaryShape2D_7dm0k")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Field/WorldBounds"]
-polygon = PackedVector2Array(-1, 285, 33, 285, 38, 221, 74, 167, 153, 122, 250, 112, 267, 28, 454, 28, 467, 116, 570, 125, 633, 159, 677, 220, 687, 276, 769, 276, 764, -58, -40, -58, -40, 285)
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Field/WorldBounds"]
-polygon = PackedVector2Array(686, 1115, 688, 1173, 674, 1233, 647, 1273, 589, 1309, 520, 1325, 451, 1327, 451, 1409, 279, 1409, 278, 1323, 196, 1323, 126, 1304, 69, 1265, 37, 1206, 32, 1162, 31, 1114, -40, 1113, -38, 1492, 816, 1496, 803, 1115)
+[node name="Field" parent="." instance=ExtResource("9_ycdy4")]
 
 [node name="Team" type="Node2D" parent="."]
 physics_interpolation_mode = 1
@@ -221,17 +173,8 @@ script = ExtResource("10_efxa6")
 position = Vector2(0, -55)
 shape = SubResource("RectangleShape2D_4c57u")
 
-[node name="Path2D" type="Path2D" parent="Team"]
-position = Vector2(217, 568)
-scale = Vector2(0.204504, 0.337113)
-curve = SubResource("Curve2D_4c57u")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Team/Path2D"]
-position = Vector2(691.691, 1797.47)
-rotation = 0.000509736
-scale = Vector2(4.88988, 2.96636)
-progress = 751.248
-loop = false
-
 [node name="Puck" parent="." instance=ExtResource("13_ycdy4")]
-position = Vector2(595, 1130)
+position = Vector2(274, 1085)
+
+[editable path="Controls/Control/P1"]
+[editable path="Field"]
