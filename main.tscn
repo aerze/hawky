@@ -131,13 +131,31 @@ offset_right = 722.0
 offset_bottom = 1278.0
 grow_vertical = 1
 rotation = 3.14159
+invert_controls = true
+
+[node name="ResetButton" type="Button" parent="Controls/Control"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = -33.5
+offset_right = 2.0
+offset_bottom = 26.5
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 1.5708
+pivot_offset = Vector2(50, 30)
+text = "RESET"
 
 [node name="Field" parent="." instance=ExtResource("9_ycdy4")]
 
-[node name="Team" type="Node2D" parent="."]
+[node name="P1" type="Node2D" parent="."]
 physics_interpolation_mode = 1
 
-[node name="Anim" type="AnimationPlayer" parent="Team"]
+[node name="Anim" type="AnimationPlayer" parent="P1"]
 root_node = NodePath("../Guy1")
 callback_mode_process = 0
 callback_mode_method = 1
@@ -145,31 +163,71 @@ libraries = {
 &"": SubResource("AnimationLibrary_efxa6")
 }
 
-[node name="Guy1" type="Sprite2D" parent="Team"]
+[node name="Guy1" type="Sprite2D" parent="P1"]
 texture = ExtResource("8_kek77")
 script = ExtResource("9_dg77c")
 
-[node name="Bat" type="Sprite2D" parent="Team/Guy1"]
+[node name="Bat" type="Sprite2D" parent="P1/Guy1"]
 position = Vector2(51, 1)
 texture = ExtResource("9_kek77")
 
-[node name="AnimatableBody2D" type="AnimatableBody2D" parent="Team/Guy1"]
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="P1/Guy1"]
 rotation = 0.000826229
 skew = -0.000522256
 disable_mode = 2
 collision_mask = 7
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Team/Guy1/AnimatableBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="P1/Guy1/AnimatableBody2D"]
 shape = SubResource("CircleShape2D_efxa6")
 debug_color = Color(0.366631, 0.503912, 0.926738, 0.42)
 
-[node name="StrikeZone" type="Area2D" parent="Team"]
+[node name="StrikeZone" type="Area2D" parent="P1"]
 collision_layer = 4
 collision_mask = 2
 monitorable = false
 script = ExtResource("10_efxa6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Team/StrikeZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="P1/StrikeZone"]
+position = Vector2(0, -55)
+shape = SubResource("RectangleShape2D_4c57u")
+
+[node name="P2" type="Node2D" parent="."]
+physics_interpolation_mode = 1
+rotation = 3.14159
+
+[node name="Anim" type="AnimationPlayer" parent="P2"]
+root_node = NodePath("../Guy1")
+callback_mode_process = 0
+callback_mode_method = 1
+libraries = {
+&"": SubResource("AnimationLibrary_efxa6")
+}
+
+[node name="Guy1" type="Sprite2D" parent="P2"]
+texture = ExtResource("8_kek77")
+script = ExtResource("9_dg77c")
+
+[node name="Bat" type="Sprite2D" parent="P2/Guy1"]
+position = Vector2(51, 1)
+texture = ExtResource("9_kek77")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="P2/Guy1"]
+rotation = 0.000826229
+skew = -0.000522256
+disable_mode = 2
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="P2/Guy1/AnimatableBody2D"]
+shape = SubResource("CircleShape2D_efxa6")
+debug_color = Color(0.366631, 0.503912, 0.926738, 0.42)
+
+[node name="StrikeZone" type="Area2D" parent="P2"]
+collision_layer = 4
+collision_mask = 2
+monitorable = false
+script = ExtResource("10_efxa6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="P2/StrikeZone"]
 position = Vector2(0, -55)
 shape = SubResource("RectangleShape2D_4c57u")
 
@@ -177,4 +235,5 @@ shape = SubResource("RectangleShape2D_4c57u")
 position = Vector2(274, 1085)
 
 [editable path="Controls/Control/P1"]
+[editable path="Controls/Control/P2"]
 [editable path="Field"]

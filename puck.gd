@@ -8,12 +8,24 @@ class_name Puck
 @export var max_slide_velocity: float;
 @export var min_slide_velocity: float;
 
+@export var clamp_velocity: float = 3000;
+
+var initial_position: Vector2 = global_position;
+
 var left:
 	get:
 		return global_position.x - 20;
 
 func _ready() -> void:
+	initial_position = global_position;
 	body_entered.connect(handle_body_entered);
+	return;
+
+func reset():
+	#reset_physics_interpolation()
+	linear_velocity = Vector2(0, 0);
+	angular_velocity = 0;
+	PhysicsServer2D.body_set_state( get_rid(), PhysicsServer2D.BODY_STATE_TRANSFORM, Transform2D.IDENTITY.translated(initial_position));
 	return;
 
 func handle_body_entered(_body: Node):
@@ -24,7 +36,6 @@ func handle_body_entered(_body: Node):
 	return;
 
 func _process(_delta: float) -> void:
-	print(linear_velocity.length())
 	var slow_enough = linear_velocity.length() < max_slide_velocity;
 	var fast_enough = linear_velocity.length() > min_slide_velocity;
 	if slow_enough && fast_enough:
@@ -33,3 +44,7 @@ func _process(_delta: float) -> void:
 	else:
 		if puck_slide.playing:
 			puck_slide.playing = false;
+
+func _physics_process(delta: float) -> void:
+	if (linear_velocity.length() > 2500):
+		linear_velocity = linear_velocity.normalized() * clamp_velocity;

@@ -37,6 +37,7 @@ grow_vertical = 2
 texture = ExtResource("1_c7k8o")
 
 [node name="WorldBounds" type="StaticBody2D" parent="."]
+visible = false
 physics_material_override = SubResource("PhysicsMaterial_7dm0k")
 
 [node name="WorldBottom" type="CollisionShape2D" parent="WorldBounds"]
@@ -59,7 +60,7 @@ rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_7dm0k")
 
 [node name="NorthCurves" type="CollisionPolygon2D" parent="WorldBounds"]
-polygon = PackedVector2Array(263, 118, 200, 118, 134, 133, 94, 154, 58, 192, 40, 237, 35, 284, -39, 284, -40, -59, 763, -57, 768, 277, 688, 276, 679, 230, 664, 193, 632, 158, 587, 133, 529, 119, 461, 118, 461, 29, 263, 29)
+polygon = PackedVector2Array(263, 118, 200, 118, 134, 133, 94, 154, 58, 192, 40, 237, 35, 284, 0, 284, 0, 0, 720, 0, 720, 276, 688, 276, 679, 230, 664, 193, 632, 158, 587, 133, 529, 119, 461, 118, 461, 29, 263, 29)
 
 [node name="SouthCurves" type="CollisionPolygon2D" parent="WorldBounds"]
 polygon = PackedVector2Array(686, 1115, 688, 1173, 674, 1233, 637, 1283, 589, 1309, 520, 1323, 451, 1323, 451, 1409, 279, 1409, 278, 1323, 199, 1323, 127, 1308, 77, 1274, 46, 1230, 32, 1167, 31, 1114, -40, 1113, -38, 1492, 816, 1496, 803, 1115)
@@ -88,7 +89,7 @@ curve = SubResource("Curve2D_h6tip")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="NorthPath"]
 position = Vector2(718.188, -149.998)
-rotation = -0.00186447
+rotation = -0.00186428
 scale = Vector2(4.88988, 2.96636)
 progress = 735.794
 loop = false
@@ -100,7 +101,7 @@ curve = SubResource("Curve2D_h6tip")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="SouthPath"]
 position = Vector2(718.188, -149.998)
-rotation = -0.00186447
+rotation = -0.00186428
 scale = Vector2(4.88988, 2.96636)
 progress = 735.794
 loop = false

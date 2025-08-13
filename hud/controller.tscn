@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4l1m5m0ff5iv"]
+[gd_scene load_steps=8 format=3 uid="uid://c4l1m5m0ff5iv"]
 
+[ext_resource type="Script" uid="uid://bxrwiau8voxri" path="res://hud/controller.gd" id="1_51lan"]
 [ext_resource type="Texture2D" uid="uid://iiruu1tac6x" path="res://socket.png" id="1_fpee7"]
 [ext_resource type="Script" uid="uid://c8v813f5luo48" path="res://stick_button.gd" id="2_51lan"]
 [ext_resource type="Texture2D" uid="uid://dyknyyw3owe7l" path="res://button.png" id="3_bwlwt"]
@@ -18,6 +19,7 @@ anchor_bottom = 1.0
 offset_top = -640.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("1_51lan")
 
 [node name="Socket" type="Sprite2D" parent="."]
 position = Vector2(185, 601)
@@ -25,7 +27,7 @@ rotation = 1.5708
 texture = ExtResource("1_fpee7")
 
 [node name="StickButton" type="TextureButton" parent="."]
-layout_mode = 0
+layout_mode = 1
 offset_left = 48.0
 offset_top = 488.0
 offset_right = 168.0
@@ -34,7 +36,6 @@ action_mode = 0
 texture_normal = SubResource("CompressedTexture2D_1bvp3")
 stretch_mode = 3
 script = ExtResource("2_51lan")
-limit_offset = 0.0
 limit_left = 45.0
 limit_right = 205.0
 
